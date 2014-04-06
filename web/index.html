@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="lib/bootstrap.css"/>
+	<script data-main="js/app" src="lib/require.js"></script>
+	<style>
+	.action {
+		color: #ccc;
+		margin: 0 4px;
+	}
+	.action:hover {
+		color: black;
+		cursor: pointer;
+	}
+	.active {
+		color: black;
+	}
+	.rejected {
+		color: #ccc;
+	}
+	.flagged {
+		color: #080;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<br>
+		<button type="button" class="btn btn-default" data-bind="css: {'btn-primary': filter() == 'all'}, click: showAll">All</button>
+		<button type="button" class="btn btn-default" data-bind="css: {'btn-primary': filter() == 'pending'}, click: showPending">Pending</button>
+		<br><br>
+
+		<table class="table">
+			<tr>
+				<th>Name</th>
+				<th>Address</th>
+				<th width="20%">Status</th>
+			</tr>	
+			<tbody data-bind="foreach: companies">
+				<tr data-bind="css: status()">
+					<td data-bind="text: name"></td>
+					<td data-bind="text: address"></td>
+					<td>
+						<span data-bind="css: {active: status() == 'flagged'}, click: flag" class="action glyphicon glyphicon-flag"></span>
+						<span data-bind="css: {active: status() == 'accepted'}, click: accept" class="action glyphicon glyphicon-ok"></span>
+						<span data-bind="css: {active: status() == 'rejected'}, click: reject" class="action glyphicon glyphicon-remove"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
