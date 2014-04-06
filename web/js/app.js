@@ -28,5 +28,5 @@ requirejs(['jquery', 'knockout', 'viewmodel'], function ($, ko, ViewModel) {
 	var vm = new ViewModel(loadCompanies);
 	ko.applyBindings(vm);
 
-	vm.filter('all');
+	vm.filter('pending');
 });

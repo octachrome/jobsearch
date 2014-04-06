@@ -1,4 +1,6 @@
 define(['jquery', 'knockout'], function ($, ko) {
+	var LOCATION_REGEX = /, ([^,]+), United Kingdom/;
+
 	function CompanyModel(company, onChange) {
 		this._company = company;
 		this._onChange = onChange;
@@ -8,19 +10,24 @@ define(['jquery', 'knockout'], function ($, ko) {
 
 		this.status = ko.observable(company.status);
 		this.status.subscribe(this._fireOnChange.bind(this))
+
+		var match = LOCATION_REGEX.exec(this.address);
+		var town = match ? match[1] : 'software';
+
+		this.url = 'http://google.co.uk/search?btnI=I&q=' + company.name + '+' + town;
 	}
 
 	CompanyModel.prototype = {
-		flag: function () {
-			this._updateStatus('flagged');
+		yes: function () {
+			this._updateStatus('yes');
 		},
-		
-		accept: function () {
-			this._updateStatus('accepted');
+
+		no: function () {
+			this._updateStatus('no');
 		},
-		
-		reject: function () {
-			this._updateStatus('rejected');
+
+		irrelevant: function () {
+			this._updateStatus('irrelevant');
 		},
 
 		_updateStatus: function(status) {

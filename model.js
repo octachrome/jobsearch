@@ -31,8 +31,12 @@ exports.saveCompany = function saveCompany(req, res) {
 	var id = req.body._id;
 
 	jobs.update({_id: id}, req.body, function (err) {
-		console.log(err);
-		res.send(200, {});
+		if (err) {
+			console.error(err);
+			res.send(500, error);
+		} else {
+			res.send(200, {});
+		}
 		server.close();
 	});
 }

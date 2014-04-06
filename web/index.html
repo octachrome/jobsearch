@@ -15,10 +15,10 @@
 	.active {
 		color: black;
 	}
-	.rejected {
+	.irrelevant, .irrelevant a {
 		color: #ccc;
 	}
-	.flagged {
+	.yes, .yes a {
 		color: #080;
 	}
 	</style>
@@ -26,25 +26,26 @@
 <body>
 	<div class="container">
 		<br>
-		<button type="button" class="btn btn-default" data-bind="css: {'btn-primary': filter() == 'all'}, click: showAll">All</button>
 		<button type="button" class="btn btn-default" data-bind="css: {'btn-primary': filter() == 'pending'}, click: showPending">Pending</button>
+		<button type="button" class="btn btn-default" data-bind="css: {'btn-primary': filter() == 'all'}, click: showAll">All</button>
 		<br><br>
+		Showing <span data-bind="text: companies().length"></span> companies<br><br>
 
 		<table class="table">
 			<tr>
+				<th width="10%">Status</th>
 				<th>Name</th>
 				<th>Address</th>
-				<th width="20%">Status</th>
 			</tr>	
 			<tbody data-bind="foreach: companies">
 				<tr data-bind="css: status()">
-					<td data-bind="text: name"></td>
-					<td data-bind="text: address"></td>
 					<td>
-						<span data-bind="css: {active: status() == 'flagged'}, click: flag" class="action glyphicon glyphicon-flag"></span>
-						<span data-bind="css: {active: status() == 'accepted'}, click: accept" class="action glyphicon glyphicon-ok"></span>
-						<span data-bind="css: {active: status() == 'rejected'}, click: reject" class="action glyphicon glyphicon-remove"></span>
+						<span data-bind="css: {active: status() == 'yes'}, click: yes" class="action glyphicon glyphicon-thumbs-up"></span>
+						<span data-bind="css: {active: status() == 'no'}, click: no" class="action glyphicon glyphicon-thumbs-down"></span>
+						<span data-bind="css: {active: status() == 'irrelevant'}, click: irrelevant" class="action glyphicon glyphicon-ban-circle"></span>
 					</td>
+					<td><a target="another" data-bind="text: name, attr: {href: url}"></td>
+					<td data-bind="text: address"></td>
 				</tr>
 			</tbody>
 		</table>
