@@ -1,5 +1,16 @@
 define(['jquery', 'knockout'], function ($, ko) {
-	var LOCATION_REGEX = /, ([^,]+), United Kingdom/;
+	var BAD_ADDRESS_REGEX = /UK|United Kingdom|[A-Z]+[0-9]+ ?[0-9+][A-Z]+/;
+
+	function getTown(address) {
+		var parts = address.split(/,/);
+		for (var i = parts.length - 1; i >= 0; i--) {
+			var part = parts[i].trim();
+			if (!part.match(BAD_ADDRESS_REGEX)) {
+				return part;
+			}
+		}
+		return 'software';
+	}
 
 	function CompanyModel(company, onChange) {
 		this._company = company;
@@ -11,10 +22,7 @@ define(['jquery', 'knockout'], function ($, ko) {
 		this.status = ko.observable(company.status);
 		this.status.subscribe(this._fireOnChange.bind(this))
 
-		var match = LOCATION_REGEX.exec(this.address);
-		var town = match ? match[1] : 'software';
-
-		this.url = 'http://google.co.uk/search?btnI=I&q=' + company.name + '+' + town;
+		this.url = 'http://google.co.uk/search?btnI=I&q=' + company.name + '+' + getTown(this.address);
 	}
 
 	CompanyModel.prototype = {
