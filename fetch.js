@@ -64,9 +64,16 @@ function multifetch(keyword, location) {
 	});
 }
 
-var starleyWay = '52.43006,-1.714554';
-var coventry = '52.406817,-1.519718';
+var places = {
+	starleyWay: '52.43006,-1.714554',
+	coventry: '52.406817,-1.519718'
+};
 
-multifetch('software', coventry);
+var place = process.argv[2] || 'coventry';
+if (places[place]) {
+	place = places[place];
+}
+
+multifetch('software', place);
 
 //c/mongodb-win32-x86_64-2008plus-2.4.10/bin/mongoimport --db test --jsonArray --collection jobs --file jobs.json
