@@ -14,7 +14,11 @@ exports.getCompanies = function getCompanies(req, res) {
 				{ status: { $exists: false } },
 				{ status: null }
 			]
-		}
+		};
+	} else if (filter != 'all') {
+		selector = {
+			status: filter
+		};
 	}
 
 	jobs.find(selector, function (err, docs) {

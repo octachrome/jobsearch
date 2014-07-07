@@ -69,6 +69,10 @@ define(['jquery', 'knockout'], function ($, ko) {
 
 		showPending: function showPending() {
 			this.filter('pending');
+		},
+
+		showLikes: function showLikes() {
+			this.filter('yes');
 		}
 	};
 
