@@ -5,8 +5,9 @@
   "main": "server.js",
   "dependencies": {
     "express": "~3.5.1",
-    "request": "~2.34.0",
-    "mongodb": "^1.4.0"
+    "mongodb": "^1.4.0",
+    "mongodb-lite": "git+https://github.com/jankuca/node-mongodb-lite",
+    "request": "~2.34.0"
   },
   "devDependencies": {},
   "scripts": {
